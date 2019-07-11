@@ -8,6 +8,7 @@
 
 import UIKit
 import FSCalendar
+import GrowingTextView
 
 class TimeOffViewController: UIViewController {
     
@@ -17,7 +18,14 @@ class TimeOffViewController: UIViewController {
     var endTime = Date()
     var reason = ""
     var duration = Double()
-    
+    var currenTextViewHeight = CGFloat(42.5)
+
+    @IBOutlet weak var eventNameTextView: GrowingTextView! {
+        didSet {
+            eventNameTextView.delegate = self
+            eventNameTextView.maxHeight = 90
+        }
+    }
     var shouldCollapse = false
     var allDay = true
     var timeOffTableHeight = 0
@@ -25,6 +33,7 @@ class TimeOffViewController: UIViewController {
     var toDayButton: UIButton?
     var placeHolderText = "Please specify your reason."
     
+    @IBOutlet weak var scrollViewContentView: UIView!
     @IBOutlet weak var reasonTextView: UITextView! {
         didSet {
             reasonTextView.delegate = self
@@ -33,6 +42,7 @@ class TimeOffViewController: UIViewController {
         }
     }
     //    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var timeOffTypeView: UIView!
     @IBOutlet weak var fromDateView: UIView!
     @IBOutlet weak var toDateView: UIView!
     @IBOutlet weak var fromTimeLabel: UILabel!
@@ -447,5 +457,31 @@ extension TimeOffViewController {
             self.reasonView.frame.origin.y -= 220
             //            self.bottomConstraint.constant -= 220
         }, completion: nil)
+    }
+}
+
+extension TimeOffViewController: GrowingTextViewDelegate {
+    func textViewDidChangeHeight(_ textView: GrowingTextView, height: CGFloat) {
+        print("Height \(height)")
+        let growingHeight = height - currenTextViewHeight
+        if height > currenTextViewHeight {
+            UIView.animate(withDuration: 0.5) {
+                self.timeOffTypeTableView.frame.origin.y += 26.16
+                self.timeOffTypeView.frame.origin.y += 26.16
+                self.datePickerView.frame.origin.y += 26.16
+            }
+        } else if height < 45 {
+            UIView.animate(withDuration: 0.5) {
+                self.timeOffTypeTableView.frame.origin.y = 85
+                self.timeOffTypeView.frame.origin.y -= 28
+                self.datePickerView.frame.origin.y -= 28
+            }
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                self.timeOffTypeTableView.frame.origin.y -= 26.16
+                self.timeOffTypeView.frame.origin.y -= 26.16
+                self.datePickerView.frame.origin.y -= 26.16
+            }
+        }
     }
 }
