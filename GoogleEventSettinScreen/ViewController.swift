@@ -1,5 +1,5 @@
 //
-//  TimeOffViewController.swift
+//  AddEventViewController.swift
 //  PathmazingVIP
 //
 //  Created by Samrith Yoeun on 7/8/19.
@@ -10,7 +10,7 @@ import UIKit
 import FSCalendar
 import GrowingTextView
 
-class TimeOffViewController: UIViewController {
+class AddEventViewController: UIViewController {
     
     var startDate = Date()
     var endDate = Date()
@@ -19,21 +19,46 @@ class TimeOffViewController: UIViewController {
     var reason = ""
     var duration = Double()
     var currenTextViewHeight = CGFloat(42.5)
+    
+    var displayTypes = ["Private", "Public"] {
+        didSet {
+            displayTypeTableViewHeight = displayTypes.count * 40
+        }
+    }
+    
+    var alarmOptions = ["None", "30 Mins Before", "10 Mins Before"] {
+        didSet {
+            notificatonTalbeViewHeight = alarmOptions.count * 40
+        }
+    }
 
+    var displayTypeTableViewHeight = 160
+    var notificatonTalbeViewHeight = 160
+    
     @IBOutlet weak var eventNameTextView: GrowingTextView! {
         didSet {
             eventNameTextView.delegate = self
             eventNameTextView.maxHeight = 90
         }
     }
+    var notificationOption = false
     var shouldCollapse = false
     var allDay = true
-    var timeOffTableHeight = 0
+    
     var fromDayButton: UIButton?
     var toDayButton: UIButton?
-    var placeHolderText = "Please specify your reason."
+    var placeHolderText = "Event Name"
     
-    @IBOutlet weak var scrollViewContentView: UIView!
+    @IBOutlet weak var notificationOptionButton: UIButton!
+    @IBOutlet weak var notificationOptionLabel: UILabel!
+    @IBOutlet weak var noteView: UIView!
+    @IBOutlet weak var noficationTypeTableView: UITableView! {
+        didSet {
+            noficationTypeTableView.delegate = self
+            noficationTypeTableView.dataSource = self
+        }
+    }
+    @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var reasonTextView: UITextView! {
         didSet {
             reasonTextView.delegate = self
@@ -42,11 +67,12 @@ class TimeOffViewController: UIViewController {
         }
     }
     //    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var timeOffTypeView: UIView!
+    @IBOutlet weak var displayTypeView: UIView!
+    @IBOutlet weak var notificationHeaderView: UIView!
     @IBOutlet weak var fromDateView: UIView!
     @IBOutlet weak var toDateView: UIView!
     @IBOutlet weak var fromTimeLabel: UILabel!
-    @IBOutlet weak var timeOffTypeLabel: UILabel!
+    @IBOutlet weak var displayTypeLabel: UILabel!
     @IBOutlet weak var startDayLabel: UILabel! {
         didSet {
             
@@ -61,7 +87,6 @@ class TimeOffViewController: UIViewController {
     
     @IBOutlet weak var toTimeLabel: UILabel!
     @IBOutlet weak var datePickerView: UIView!
-    @IBOutlet weak var remainingAnnualLeave: UILabel!
     
     @IBOutlet weak var uiSwitch: UISwitch! {
         didSet {
@@ -74,9 +99,7 @@ class TimeOffViewController: UIViewController {
             toTimePickerView.isHidden = true
         }
     }
-    
-    @IBOutlet weak var reasonView: UIView!
-    
+
     @IBOutlet weak var fromTimePickerView: UIDatePicker! {
         didSet {
             fromTimePickerView.isHidden = true
@@ -94,25 +117,25 @@ class TimeOffViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var timeOffTypeTableView: UITableView! {
+    @IBOutlet weak var displayTypeTableView: UITableView! {
         didSet {
-            timeOffTypeTableView.delegate = self
-            timeOffTypeTableView.dataSource = self
+            displayTypeTableView.delegate = self
+            displayTypeTableView.dataSource = self
             
         }
     }
     
-    static func instantiate() -> TimeOffViewController {
+    static func instantiate() -> AddEventViewController {
         let storyboard = UIStoryboard(name: "PublicHoliday", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: String(describing: self)) as! TimeOffViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: String(describing: self)) as! AddEventViewController
         return controller
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let footerView = UIView (frame: CGRect(x: 0, y: 0, width: timeOffTypeTableView.frame.size.width, height: 1))
-        timeOffTypeTableView.tableFooterView = footerView
+        let footerView = UIView (frame: CGRect(x: 0, y: 0, width: displayTypeTableView.frame.size.width, height: 1))
+        displayTypeTableView.tableFooterView = footerView
         fromDateView.frame.size.height = 40
         fromDateView.clipsToBounds = true
      
@@ -200,13 +223,23 @@ class TimeOffViewController: UIViewController {
         }
     }
     
-    @IBAction func onTimeOffTypeButtonTapped(_ sender: Any) {
+    @IBAction func displayTypeButtonDidTapped(_ sender: Any) {
         let button = sender as! UIButton
         button.isEnabled = false
         if shouldCollapse {
-            collapseTimeOffTypeTableView(button)
+            collapseDisPlayTypeTableView(button)
         } else {
-            expandTimeOffTypeTableView(button)
+            expandDisplayTypeTableView(button)
+        }
+    }
+    
+    @IBAction func notificationButtonDidTapped(_ sender: Any) {
+        
+        notificationOptionButton.isEnabled = false
+        if notificationOption {
+            collapseNotificationTableView(notificationOptionButton)
+        } else {
+            expandNotificationTableView(notificationOptionButton)
         }
     }
     
@@ -226,36 +259,51 @@ class TimeOffViewController: UIViewController {
     
 }
 
-extension TimeOffViewController: UITableViewDelegate {
+extension AddEventViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-     
-        collapseTimeOffTypeTableView()
+        if tableView == noficationTypeTableView {
+            displayTypeLabel.text = "private"
+            collapseNotificationTableView()
+        } else {
+            notificationOptionLabel.text = "private"
+            collapseDisPlayTypeTableView()
+        }
+        
+        
     }
 }
 
-extension TimeOffViewController: UITableViewDataSource {
+extension AddEventViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        if tableView == noficationTypeTableView {
+            return alarmOptions.count
+        } else {
+            return displayTypes.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TimeOffTypeTableViewCell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TimeOffTypeTableViewCell") as! TimeOffTypeTableViewCell
+        if tableView == noficationTypeTableView {
+            cell.timeOffTypeLabel?.text = "10 minute"
+        } else {
+            cell.timeOffTypeLabel?.text = "Private"
+        }
         
-        cell.textLabel?.text = "Hello"
         return cell
     }
 }
 
-extension TimeOffViewController: FSCalendarDelegate {
+extension AddEventViewController: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         if calendar == fromDateCalendar {
             fromDayButton?.isEnabled = true
@@ -278,7 +326,8 @@ extension TimeOffViewController: FSCalendarDelegate {
     }
 }
 
-extension TimeOffViewController: UITextViewDelegate {
+extension AddEventViewController: UITextViewDelegate {
+    
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         
         textView.textColor = .black
@@ -299,38 +348,67 @@ extension TimeOffViewController: UITextViewDelegate {
 }
 
 // MARK: Animation on Time Off Type
-extension TimeOffViewController {
-    private func collapseTimeOffTypeTableView(_ button: UIButton? = nil) {
+extension AddEventViewController {
+    
+    private func collapseDisPlayTypeTableView(_ button: UIButton? = nil) {
         
         UIView.animate(withDuration: 0.3
             , animations: {
-                self.timeOffTypeTableView.frame.size.height -= CGFloat(self.timeOffTableHeight)
-                self.datePickerView.frame.origin.y -= CGFloat(self.timeOffTableHeight)
-                //                self.bottomConstraint.constant -= CGFloat(self.timeOffTableHeight)
+                self.displayTypeTableView.frame.size.height -= CGFloat(self.displayTypeTableViewHeight)
+                self.datePickerView.frame.origin.y -= CGFloat(self.displayTypeTableViewHeight)
+                //                self.bottomConstraint.constant -= CGFloat(self.displayTypeTableViewHeight)
                 
         }) { (Bool) in
-            self.timeOffTypeTableView.isHidden = true
+            self.displayTypeTableView.isHidden = true
             self.shouldCollapse = false
             button?.isEnabled = true
         }
     }
     
-    private func expandTimeOffTypeTableView(_ button: UIButton? = nil) {
+    private func expandDisplayTypeTableView(_ button: UIButton? = nil) {
         UIView.animate(withDuration: 0.3
             , animations: {
-                self.timeOffTypeTableView.isHidden = false
-                self.timeOffTypeTableView.frame.size.height += CGFloat(self.timeOffTableHeight)
-                self.datePickerView.frame.origin.y += CGFloat(self.timeOffTableHeight)
-                //                self.bottomConstraint.constant += CGFloat(self.timeOffTableHeight)
+                self.displayTypeTableView.isHidden = false
+                self.displayTypeTableView.frame.size.height += CGFloat(self.displayTypeTableViewHeight)
+                self.datePickerView.frame.origin.y += CGFloat(self.displayTypeTableViewHeight)
+                //                self.bottomConstraint.constant += CGFloat(self.displayTypeTableViewHeight)
         }) { (Bool) in
             self.shouldCollapse = true
+            button?.isEnabled = true
+        }
+    }
+    
+    private func collapseNotificationTableView(_ button: UIButton? = nil) {
+        
+        UIView.animate(withDuration: 0.3
+            , animations: {
+                self.noficationTypeTableView.frame.size.height -= CGFloat(self.displayTypeTableViewHeight)
+                self.noteView.frame.origin.y -= CGFloat(self.displayTypeTableViewHeight)
+                //                self.bottomConstraint.constant -= CGFloat(self.displayTypeTableViewHeight)
+                
+        }) { (Bool) in
+            self.noficationTypeTableView.isHidden = true
+            self.notificationOption = false
+            button?.isEnabled = true
+        }
+    }
+    
+    private func expandNotificationTableView(_ button: UIButton? = nil) {
+        UIView.animate(withDuration: 0.3
+            , animations: {
+                self.noficationTypeTableView.isHidden = false
+                self.noficationTypeTableView.frame.size.height += CGFloat(self.displayTypeTableViewHeight)
+                self.noteView.frame.origin.y += CGFloat(self.displayTypeTableViewHeight)
+                //                self.bottomConstraint.constant += CGFloat(self.displayTypeTableViewHeight)
+        }) { (Bool) in
+            self.notificationOption = true
             button?.isEnabled = true
         }
     }
 }
 
 // MARK: Animation on DateTimePicker and TimeButton
-extension TimeOffViewController {
+extension AddEventViewController {
     private func showTimeButton() {
         
         UIView.animate(withDuration: 0.3, animations: {
@@ -361,7 +439,11 @@ extension TimeOffViewController {
                 self.fromDateCalendar.isHidden = true
                 self.fromDateView.frame.size.height += 220
                 self.toDateView.frame.origin.y += 220
-                self.reasonView.frame.origin.y += 220
+                self.locationView.frame.origin.y += 220
+                self.notificationHeaderView.frame.origin.y += 220
+                self.noficationTypeTableView.frame.origin.y += 220
+                self.noteView.frame.origin.y += 220
+                
                 //                self.bottomConstraint.constant += 220
             }, completion: nil)
         }
@@ -376,7 +458,10 @@ extension TimeOffViewController {
             UIView.animate(withDuration: 0.3, animations: {
                 self.toDateCalendar.isHidden = true
                 self.toDateView.frame.size.height += 220
-                self.reasonView.frame.origin.y += 220
+                self.locationView.frame.origin.y += 220
+                self.notificationHeaderView.frame.origin.y += 220
+                self.noficationTypeTableView.frame.origin.y += 220
+                self.noteView.frame.origin.y += 220
                 //                self.bottomConstraint.constant += 220
             }, completion: nil)
         }
@@ -384,7 +469,7 @@ extension TimeOffViewController {
 }
 
 // MARK : Animation on StartDate and EndDate Calendars
-extension TimeOffViewController {
+extension AddEventViewController {
     private func fadeInEndDateCalendar() {
         toDateCalendar.isHidden = false
         toTimePickerView.isHidden = true
@@ -405,8 +490,6 @@ extension TimeOffViewController {
         }, completion: nil)
     }
     
-    
-    
     private func showToDateCalendar() {
         self.toDayButton?.isEnabled = true
         self.toDateCalendar.alpha = 0
@@ -416,7 +499,11 @@ extension TimeOffViewController {
         }
         UIView.animate(withDuration: 0.3, animations: {
             self.toDateView.frame.size.height += 220
-            self.reasonView.frame.origin.y += 220
+            self.locationView.frame.origin.y += 220
+            self.notificationHeaderView.frame.origin.y += 220
+            self.noficationTypeTableView.frame.origin.y += 220
+            self.noteView.frame.origin.y += 220
+            
             //            self.bottomConstraint.constant += 220
         }, completion: nil)
         
@@ -427,7 +514,10 @@ extension TimeOffViewController {
         
         UIView.animate(withDuration: 0.3, animations: {
             self.toDateView.frame.size.height -= 220
-            self.reasonView.frame.origin.y -= 220
+            self.locationView.frame.origin.y -= 220
+            self.notificationHeaderView.frame.origin.y -= 220
+            self.noficationTypeTableView.frame.origin.y -= 220
+            self.noteView.frame.origin.y -= 220
             //            self.bottomConstraint.constant -= 220
         }, completion: nil)
     }
@@ -444,7 +534,10 @@ extension TimeOffViewController {
         UIView.animate(withDuration: 0.3, animations: {
             self.fromDateView.frame.size.height += 220
             self.toDateView.frame.origin.y += 220
-            self.reasonView.frame.origin.y += 220
+            self.locationView.frame.origin.y += 220
+            self.notificationHeaderView.frame.origin.y += 220
+            self.noficationTypeTableView.frame.origin.y += 220
+            self.noteView.frame.origin.y += 220
             //            self.bottomConstraint.constant += 220
         }, completion:  nil)
     }
@@ -454,33 +547,46 @@ extension TimeOffViewController {
         UIView.animate(withDuration: 0.3, animations: {
             self.fromDateView.frame.size.height -= 220
             self.toDateView.frame.origin.y -= 220
-            self.reasonView.frame.origin.y -= 220
+            self.locationView.frame.origin.y -= 220
+            self.notificationHeaderView.frame.origin.y -= 220
+            self.noficationTypeTableView.frame.origin.y -= 220
+            self.noteView.frame.origin.y -= 220
+            
             //            self.bottomConstraint.constant -= 220
         }, completion: nil)
     }
 }
 
-extension TimeOffViewController: GrowingTextViewDelegate {
+extension AddEventViewController: GrowingTextViewDelegate {
     func textViewDidChangeHeight(_ textView: GrowingTextView, height: CGFloat) {
         print("Height \(height)")
         let growingHeight = height - currenTextViewHeight
         if height > currenTextViewHeight {
             UIView.animate(withDuration: 0.5) {
-                self.timeOffTypeTableView.frame.origin.y += 26.16
-                self.timeOffTypeView.frame.origin.y += 26.16
+                self.displayTypeTableView.frame.origin.y += 26.16
+                self.displayTypeView.frame.origin.y += 26.16
                 self.datePickerView.frame.origin.y += 26.16
+                self.notificationHeaderView.frame.origin.y += 26.16
+                self.noficationTypeTableView.frame.origin.y += 26.16
+                self.noteView.frame.origin.y  += 26.16
             }
-        } else if height < 45 {
-            UIView.animate(withDuration: 0.5) {
-                self.timeOffTypeTableView.frame.origin.y = 85
-                self.timeOffTypeView.frame.origin.y -= 28
-                self.datePickerView.frame.origin.y -= 28
+        } else if height < 50 {
+            UIView.animate(withDuration: 0.2) {
+                self.displayTypeTableView.frame.origin.y -= 45
+                self.displayTypeView.frame.origin.y -= 45
+                self.datePickerView.frame.origin.y -= 45
+                self.notificationHeaderView.frame.origin.y -= 45
+                self.noficationTypeTableView.frame.origin.y -= 45
+                self.noteView.frame.origin.y -= 45
             }
         } else {
-            UIView.animate(withDuration: 0.5) {
-                self.timeOffTypeTableView.frame.origin.y -= 26.16
-                self.timeOffTypeView.frame.origin.y -= 26.16
+            UIView.animate(withDuration: 0.2) {
+                self.displayTypeTableView.frame.origin.y -= 26.16
+                self.displayTypeView.frame.origin.y -= 26.16
                 self.datePickerView.frame.origin.y -= 26.16
+                self.notificationHeaderView.frame.origin.y -= 26.16
+                self.noficationTypeTableView.frame.origin.y -= 26.16
+                self.noteView.frame.origin.y -= 26.16
             }
         }
     }

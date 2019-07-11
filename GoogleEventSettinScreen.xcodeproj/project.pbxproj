@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		556740E822D70BF900DA0636 /* TimeOffTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556740E722D70BF900DA0636 /* TimeOffTypeTableViewCell.swift */; };
 		5571978A22D5A89F0035BF12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5571978922D5A89F0035BF12 /* AppDelegate.swift */; };
 		5571978C22D5A89F0035BF12 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5571978B22D5A89F0035BF12 /* ViewController.swift */; };
 		5571978F22D5A89F0035BF12 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5571978D22D5A89F0035BF12 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		1C32E2A6B889DC71C0FFD91C /* Pods_GoogleEventSettinScreen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoogleEventSettinScreen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E61B346E4F02F061BD0D69C /* Pods-GoogleEventSettinScreen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoogleEventSettinScreen.release.xcconfig"; path = "Target Support Files/Pods-GoogleEventSettinScreen/Pods-GoogleEventSettinScreen.release.xcconfig"; sourceTree = "<group>"; };
+		556740E722D70BF900DA0636 /* TimeOffTypeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeOffTypeTableViewCell.swift; sourceTree = "<group>"; };
 		5571978622D5A89F0035BF12 /* GoogleEventSettinScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoogleEventSettinScreen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5571978922D5A89F0035BF12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5571978B22D5A89F0035BF12 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			children = (
 				5571978922D5A89F0035BF12 /* AppDelegate.swift */,
 				5571978B22D5A89F0035BF12 /* ViewController.swift */,
+				556740E722D70BF900DA0636 /* TimeOffTypeTableViewCell.swift */,
 				5571978D22D5A89F0035BF12 /* Main.storyboard */,
 				5571979022D5A8A10035BF12 /* Assets.xcassets */,
 				5571979222D5A8A10035BF12 /* LaunchScreen.storyboard */,
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5571978C22D5A89F0035BF12 /* ViewController.swift in Sources */,
+				556740E822D70BF900DA0636 /* TimeOffTypeTableViewCell.swift in Sources */,
 				5571978A22D5A89F0035BF12 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
