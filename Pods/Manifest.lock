@@ -1,0 +1,20 @@
+PODS:
+  - FSCalendar (2.8.0)
+  - GrowingTextView (0.6.1)
+
+DEPENDENCIES:
+  - FSCalendar
+  - GrowingTextView (= 0.6.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FSCalendar
+    - GrowingTextView
+
+SPEC CHECKSUMS:
+  FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
+  GrowingTextView: 335aefa45df7df06b01edede1363414d6ee5d6bc
+
+PODFILE CHECKSUM: f6dcd0eff6d3d6d496e388badc47c082382636c2
+
+COCOAPODS: 1.6.1

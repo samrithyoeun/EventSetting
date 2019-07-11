@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5D1-c9-Y5j">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,21 +13,57 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GoogleEventSettinScreen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJs-S6-A8C">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0BF-Ln-D1d">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tp3-VY-M9K">
+                                                <rect key="frame" x="42" y="52" width="313" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="0BF-Ln-D1d" firstAttribute="top" secondItem="CJs-S6-A8C" secondAttribute="top" id="4Yt-Pt-ioe"/>
+                                    <constraint firstItem="0BF-Ln-D1d" firstAttribute="height" secondItem="CJs-S6-A8C" secondAttribute="height" id="PAh-Ug-Tfq"/>
+                                    <constraint firstAttribute="trailing" secondItem="0BF-Ln-D1d" secondAttribute="trailing" id="pKa-GH-v7H"/>
+                                    <constraint firstItem="0BF-Ln-D1d" firstAttribute="width" secondItem="CJs-S6-A8C" secondAttribute="width" id="qLE-jz-FIA"/>
+                                    <constraint firstAttribute="bottom" secondItem="0BF-Ln-D1d" secondAttribute="bottom" id="vPA-QO-LYf"/>
+                                    <constraint firstItem="0BF-Ln-D1d" firstAttribute="leading" secondItem="CJs-S6-A8C" secondAttribute="leading" id="xeL-wk-iJh"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="CJs-S6-A8C" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="KeE-Ri-rkY"/>
+                            <constraint firstItem="CJs-S6-A8C" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="YYK-gY-p5d"/>
+                            <constraint firstItem="CJs-S6-A8C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cyL-gT-x8C"/>
+                            <constraint firstItem="CJs-S6-A8C" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="z6J-j5-zVQ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="205.79710144927537" y="128.57142857142856"/>
         </scene>
-        <!--Event View Controller-->
+        <!--Time Off View Controller-->
         <scene sceneID="BfQ-tJ-9hx">
             <objects>
-                <viewController storyboardIdentifier="TimeOffViewController" id="5D1-c9-Y5j" customClass="EventViewController" customModule="PathmazingVIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TimeOffViewController" id="5D1-c9-Y5j" customClass="TimeOffViewController" customModule="GoogleEventSettinScreen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hyC-CL-h6I">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,7 +81,7 @@
                                                     <constraint firstAttribute="height" id="8DW-Rg-cso"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeOffTypeTableViewCell" rowHeight="40" id="M1W-xO-EtC" customClass="TimeOffTypeTableViewCell" customModule="PathmazingVIP" customModuleProvider="target">
+                                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeOffTypeTableViewCell" rowHeight="40" id="M1W-xO-EtC" customClass="TimeOffTypeTableViewCell" customModule="GoogleEventSettinScreen" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="335" height="40"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M1W-xO-EtC" id="njm-1b-bL0">
@@ -103,7 +139,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="pEj-Kj-iJC"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryZ-52-3IE" customClass="TranslateLabel" customModule="PathmazingVIP" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryZ-52-3IE" customClass="TranslateLabel" customModule="GoogleEventSettinScreen" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="21" width="26.5" height="14.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -112,7 +148,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="baseText" value="Date"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All-day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUm-FF-dXU" customClass="TranslateLabel" customModule="PathmazingVIP" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All-day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUm-FF-dXU" customClass="TranslateLabel" customModule="GoogleEventSettinScreen" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="35.5" width="54.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="highlightedColor"/>
@@ -132,7 +168,7 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HIn-9V-ogk" userLabel="From">
                                                         <rect key="frame" x="0.0" y="71" width="335" height="40"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday, June 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwb-fk-GdC" customClass="TranslateLabel" customModule="PathmazingVIP" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday, June 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwb-fk-GdC" customClass="TranslateLabel" customModule="GoogleEventSettinScreen" customModuleProvider="target">
                                                                 <rect key="frame" x="8" y="8" width="133.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -184,7 +220,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00 AM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-3R-T3a" customClass="TranslateLabel" customModule="PathmazingVIP" customModuleProvider="target">
+                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00 AM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-3R-T3a" customClass="TranslateLabel" customModule="GoogleEventSettinScreen" customModuleProvider="target">
                                                                 <rect key="frame" x="261" y="3.5" width="66" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="iu6-40-K8e"/>
@@ -241,7 +277,7 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yOi-7m-41J" userLabel="To">
                                                         <rect key="frame" x="0.0" y="119" width="335" height="40"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday, June 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PbG-A2-ZPa" customClass="TranslateLabel" customModule="PathmazingVIP" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuesday, June 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PbG-A2-ZPa" customClass="TranslateLabel" customModule="GoogleEventSettinScreen" customModuleProvider="target">
                                                                 <rect key="frame" x="8" y="8" width="133.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -284,7 +320,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5:00 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kze-Bn-uTo" customClass="TranslateLabel" customModule="PathmazingVIP" customModuleProvider="target">
+                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5:00 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kze-Bn-uTo" customClass="TranslateLabel" customModule="GoogleEventSettinScreen" customModuleProvider="target">
                                                                 <rect key="frame" x="262" y="3.5" width="65" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="aOy-G2-5M1"/>
@@ -509,15 +545,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HjQ-LR-GQb" userLabel="Title">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Off" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPH-wh-K8w" customClass="TranslateLabel" customModule="PathmazingVIP" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="25" width="100.5" height="30"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="baseText" value="Time Off"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mx2-t8-UkV">
                                                 <rect key="frame" x="330" y="10" width="30" height="30"/>
                                                 <constraints>
@@ -534,9 +561,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="fPH-wh-K8w" firstAttribute="leading" secondItem="HjQ-LR-GQb" secondAttribute="leading" constant="20" id="Ix5-Ub-AOG"/>
                                             <constraint firstAttribute="height" constant="80" id="Wwb-xo-Q9l"/>
-                                            <constraint firstItem="fPH-wh-K8w" firstAttribute="centerY" secondItem="HjQ-LR-GQb" secondAttribute="centerY" id="bzf-5Y-Ayv"/>
                                             <constraint firstItem="Mx2-t8-UkV" firstAttribute="top" secondItem="HjQ-LR-GQb" secondAttribute="top" constant="10" id="dJE-mS-Y25"/>
                                             <constraint firstAttribute="trailing" secondItem="Mx2-t8-UkV" secondAttribute="trailing" constant="15" id="nxf-5b-a47"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="y2V-nz-8CT"/>
@@ -587,7 +612,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oFj-Kw-YWm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="850" y="164"/>
+            <point key="canvasLocation" x="899" y="163"/>
         </scene>
     </scenes>
     <resources>
